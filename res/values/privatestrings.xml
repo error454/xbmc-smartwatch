@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Here we put strings that do not have to be translated. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="preference_key_read_me">preference_key_read_me</string>
+    <string name="preference_key_host">preference_key_host</string>
+    <string name="preference_key_port">preference_key_port</string>
+    <string name="preference_key_ssl">preference_key_ssl</string>
+    <string name="preference_key_user">preference_key_user</string>
+    <string name="preference_key_password">preference_key_password</string>
+</resources>

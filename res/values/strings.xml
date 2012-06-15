@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- No translation of sample extensions -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- Name of app, shown when installing/uninstalling extension -->
+    <string name="app_name">XBMC Remote extension</string>
+    <!-- Title of preference activity -->
+    <string name="preference_activity_title">XBMC Remote settings</string>
+    <!-- Name of extension, shown in preferences -->
+    <string name="extension_name">XBMC Remote</string>
+    <!-- Configuration title shown in preferences -->
+    <string name="configuration_text">XBMC Remote settings</string>
+    <!-- Menu option shown in preferences -->
+    <string name="preference_option_read_me">READ ME</string>
+    <!-- Read me text shown in dialog -->
+    <string name="preference_option_read_me_txt">The sample sensor extension shows the reading from the device accelerometer on the device.</string>
+
+    <string name="preference_option_host">Host Name</string>
+    <string name="preference_option_host_summary">Example: 192.168.0.10</string>
+    
+    <string name="preference_option_port">Port Number</string>
+    <string name="preference_option_port_summary">Example: 8080</string>
+    
+    <string name="preference_option_ssl">Use SSL</string>
+    <string name="preference_option_ssl_summary">Check to use SSL (must be enabled in xbmc)</string>
+    
+    <string name="preference_option_user">Username</string>
+    <string name="preference_option_user_summary">The username for xbmc http access</string>
+    
+    <string name="preference_option_password">Password</string>
+    <string name="preference_option_password_summary">The password for xbmc http access</string>
+</resources>
