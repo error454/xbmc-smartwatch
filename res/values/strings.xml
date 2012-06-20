@@ -11,9 +11,6 @@
     <!-- Configuration title shown in preferences -->
     <string name="configuration_text">XBMC Remote settings</string>
     <!-- Menu option shown in preferences -->
-    <string name="preference_option_read_me">READ ME</string>
-    <!-- Read me text shown in dialog -->
-    <string name="preference_option_read_me_txt">The sample sensor extension shows the reading from the device accelerometer on the device.</string>
 
     <string name="preference_option_host">Host Name</string>
     <string name="preference_option_host_summary">Example: 192.168.0.10</string>

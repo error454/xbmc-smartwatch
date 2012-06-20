@@ -117,8 +117,8 @@ public class SampleSensorControl extends ControlExtension implements SmartWatchC
 //			}
 //		});
         
-    	mPausePlay = (Button)mSmartView.findViewById(R.id.imageViewPausePlay);
-    	mPausePlay.setOnClickListener(new OnClickListener() {
+		mPausePlay = (Button)mSmartView.findViewById(R.id.imageViewPausePlay);
+		mPausePlay.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -193,20 +193,20 @@ public class SampleSensorControl extends ControlExtension implements SmartWatchC
         setScreenState(Control.Intents.SCREEN_STATE_ON);
     }
 
-    @Override
-    public void onTouch(ControlTouchEvent event) {
-    	super.onTouch(event);
-    	
-    	//Reset the screen dim timer
-    	if(mScreenDimTimer != null){
-    		mScreenDimTimer.cancel();
-    		mScreenDimTimer = null;
-    		startScreenDimTimer();
-    	}
-    	
-    	//Forward this touch event on to the smartview
-    	mSmartView.dispatchControlTouchEvent(event);
-    }
+	@Override
+	public void onTouch(ControlTouchEvent event) {
+		super.onTouch(event);
+		
+		//Reset the screen dim timer
+		if(mScreenDimTimer != null){
+			mScreenDimTimer.cancel();
+			mScreenDimTimer = null;
+			startScreenDimTimer();
+		}
+		
+		//Forward this touch event on to the smartview
+		mSmartView.dispatchControlTouchEvent(event);
+	}
     
 	@Override
 	public void updateSmartWatchScreen(Bitmap b) {
