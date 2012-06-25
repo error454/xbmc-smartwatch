@@ -7,14 +7,14 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
-* Redistributions of source code must retain the above copyright notice, this
+ * Redistributions of source code must retain the above copyright notice, this
   list of conditions and the following disclaimer.
 
-* Redistributions in binary form must reproduce the above copyright notice,
+ * Redistributions in binary form must reproduce the above copyright notice,
   this list of conditions and the following disclaimer in the documentation
   and/or other materials provided with the distribution.
 
-* Neither the name of the Sony Ericsson Mobile Communications AB nor the names
+ * Neither the name of the Sony Ericsson Mobile Communications AB nor the names
   of its contributors may be used to endorse or promote products derived from
   this software without specific prior written permission.
 
@@ -28,7 +28,7 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package com.wordpress.mobilecoder.xbmcSmartExtension;
 
 import com.sonyericsson.extras.liveware.extension.util.ExtensionService;
@@ -42,50 +42,50 @@ import android.util.Log;
  */
 public class SampleExtensionService extends ExtensionService {
 
-    public static final int NOTIFY_STOP_ALERT = 1;
-    public static final String EXTENSION_KEY = "com.wordpress.mobilecoder.xmbcSmartExtension.host.key";
-    public static final String LOG_TAG = "SampleSensorExtension";
-    public final String CLASS = getClass().getSimpleName();
+	public static final int NOTIFY_STOP_ALERT = 1;
+	public static final String EXTENSION_KEY = "com.wordpress.mobilecoder.xmbcSmartExtension.host.key";
+	public static final String LOG_TAG = "SampleSensorExtension";
+	public final String CLASS = getClass().getSimpleName();
 
 	private SampleSensorControl mSensorControl;
-    
-    public SampleExtensionService() {
-        super(EXTENSION_KEY);
-    }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see android.app.Service#onCreate()
-     */
+	public SampleExtensionService() {
+		super(EXTENSION_KEY);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @see android.app.Service#onCreate()
+	 */
 	@Override
 	public void onCreate() {
-	    super.onCreate();
-	    
-	    Log.d(LOG_TAG, CLASS + ": onCreate");
+		super.onCreate();
+
+		Log.d(LOG_TAG, CLASS + ": onCreate");
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 	}
-    
-    @Override
-    protected RegistrationInformation getRegistrationInformation() {
-        return new SampleRegistrationInformation(this);
-    }
 
-    /* (non-Javadoc)
-     * @see com.sonyericsson.extras.liveware.aef.util.ExtensionService#keepRunningWhenConnected()
-     */
-    @Override
-    protected boolean keepRunningWhenConnected() {
-        return false;
-    }
+	@Override
+	protected RegistrationInformation getRegistrationInformation() {
+		return new SampleRegistrationInformation(this);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.sonyericsson.extras.liveware.aef.util.ExtensionService#keepRunningWhenConnected()
+	 */
+	@Override
+	protected boolean keepRunningWhenConnected() {
+		return false;
+	}
 
 	@Override
 	public ControlExtension createControlExtension(String hostAppPackageName) {
 		mSensorControl = new SampleSensorControl(hostAppPackageName, this);
-	    return mSensorControl;
+		return mSensorControl;
 	}
 }

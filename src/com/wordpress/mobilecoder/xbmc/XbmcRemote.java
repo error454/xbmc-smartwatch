@@ -25,7 +25,7 @@ import android.util.Log;
 public class XbmcRemote {
 
 	private static final String TAG = "XbmcRemote";
-	
+
 	private XbmcCallbacks mListener;
 	private String mUserName;
 	private String mPassword;
@@ -34,7 +34,7 @@ public class XbmcRemote {
 	private boolean mUseSSL;
 
 	private static enum RequestType {Ping, PausePlay, VolumeUp, VolumeDown};
-	
+
 	public XbmcRemote(String user, String password, String host, String port,
 			boolean useSSL) {
 		mUserName = user;
@@ -43,7 +43,7 @@ public class XbmcRemote {
 		mPort = Integer.parseInt(port);
 		mUseSSL = useSSL;
 	}
-	
+
 	/**
 	 * Sets a listener for xbmc callbacks
 	 * @param listener
@@ -60,34 +60,34 @@ public class XbmcRemote {
 		protected Void doInBackground(RequestType... params) {
 			boolean success = false;
 			switch (params[0]){
-				case Ping:
-					break;
-				
-				case PausePlay:
-					mListener.onPlayPause(doPlayPause());
-					break;
-					
-				case VolumeUp:
-					mListener.onVolumeUp(doVolumeUp());
-					break;
-					
-				case VolumeDown:
-					mListener.onVolumeDown(doVolumeDown());
-					break;
+			case Ping:
+				break;
+
+			case PausePlay:
+				mListener.onPlayPause(doPlayPause());
+				break;
+
+			case VolumeUp:
+				mListener.onVolumeUp(doVolumeUp());
+				break;
+
+			case VolumeDown:
+				mListener.onVolumeDown(doVolumeDown());
+				break;
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			
+
 		}
 	}
-	
+
 	private PlayStatus doPlayPause(){
 		JSONObject json = doPost("{\"jsonrpc\":\"2.0\",\"method\":\"Player.PlayPause\", \"params\": {\"playerid\":1}, \"id\":1}");
-				
+
 		if(json != null){
 			try{
 				JSONObject resultArray = json.getJSONObject("result");
@@ -102,24 +102,24 @@ public class XbmcRemote {
 				return PlayStatus.Unknown;
 			}
 		}
-		
+
 		return PlayStatus.Unknown;
 	}
-	
+
 	private int doVolumeUp(){
 		//TODO
 		return 0;
 	}
-	
+
 	private int doVolumeDown(){
 		//TODO
 		return 0;
 	}
-	
+
 	private JSONObject doPost(final String JSON){
 
 		HttpClient httpClient = new DefaultHttpClient();
-		
+
 		try {
 			HttpPost request = null;
 			if (mUseSSL)
@@ -137,13 +137,13 @@ public class XbmcRemote {
 
 			//Parse result into JSON
 			if(response != null && response.getStatusLine().getStatusCode() == 200){
-				
+
 				JSONObject json = null;
 				try {
 					//Read result
 					BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 					String result = reader.readLine();
-					
+
 					//Convert to JSON
 					JSONTokener tokener = new JSONTokener(result);
 					json = new JSONObject(tokener);
@@ -160,10 +160,10 @@ public class XbmcRemote {
 					ex.printStackTrace();
 					return null;
 				}
-				
+
 				return json;
 			}
-			
+
 			return null;
 		} catch (Exception ex) {
 			Log.e(TAG, "Recevied exception during http post: " + ex);
@@ -172,18 +172,18 @@ public class XbmcRemote {
 		}
 		return null;
 	}
-	
+
 	public void volumeUp(){
-		
+
 	}
-	
+
 	public void volumeDown(){
-		
+
 	}
-	
+
 	public void playPause(){
 		new NetworkRequest().execute(RequestType.PausePlay);
 	}
-	
-	
+
+
 }

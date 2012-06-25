@@ -63,151 +63,164 @@ public class SampleSensorControl extends ControlExtension implements SmartWatchC
 	private static final String TAG = "SensorControl";
 
 	public static final int WIDTH = 128;
-    public static final int HEIGHT = 128;
-    
-    private Context mContext;
-    private SmartWatchLinearLayout mSmartView;
-    private LinearLayout mLayout;
-    private SampleSensorControl mThis;
-    
-    private XbmcRemote mXbmc;
-    
-    private Timer mScreenDimTimer;
-    private static final long TIMER_DELAY = 10000;
-    
-    private Button mPausePlay;
-    
-    /**
-     * Sets the screen state to on and starts a timer to dim the screen after
-     * TIMER_DELAY milliseconds
-     */
-    private void startScreenDimTimer(){
-    	setScreenState(Control.Intents.SCREEN_STATE_ON);
-    	mScreenDimTimer = new Timer();
-        mScreenDimTimer.schedule(new TimerTask() {
-			
+	public static final int HEIGHT = 128;
+
+	private Context mContext;
+	private SmartWatchLinearLayout mSmartView;
+	private LinearLayout mLayout;
+	private SampleSensorControl mThis;
+
+	private XbmcRemote mXbmc;
+
+	private Timer mScreenDimTimer;
+	private static final long TIMER_DELAY = 10000;
+
+	private Button mPausePlay;
+
+	/**
+	 * Sets the screen state to on and starts a timer to dim the screen after
+	 * TIMER_DELAY milliseconds
+	 */
+	private void startScreenDimTimer(){
+		setScreenState(Control.Intents.SCREEN_STATE_ON);
+		mScreenDimTimer = new Timer();
+		mScreenDimTimer.schedule(new TimerTask() {
+
 			@Override
 			public void run() {
 				setScreenState(Control.Intents.SCREEN_STATE_DIM);
 			}
 		}, TIMER_DELAY);
-    }
-    
-    /**
-     * Configure click handlers and add them to the smartview
-     */
-    private void setupButtons(){
-//    	Button up = (Button)mLayout.findViewById(R.id.imageViewUp);
-//        up.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Log.i("TEST", "up button clicked");
-//				mXbmc.volumeUp();
-//			}
-//		});
-//        
-//        Button down = (Button)mLayout.findViewById(R.id.imageViewDown);
-//        down.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Log.i("TEST", "left button clicked");
-//				mXbmc.volumeDown();
-//			}
-//		});
-        
+	}
+
+	/**
+	 * Configure click handlers and add them to the smartview
+	 */
+	private void setupButtons(){
+		//    	Button up = (Button)mLayout.findViewById(R.id.imageViewUp);
+		//        up.setOnClickListener(new OnClickListener() {
+		//			
+		//			@Override
+		//			public void onClick(View v) {
+		//				Log.i("TEST", "up button clicked");
+		//				mXbmc.volumeUp();
+		//			}
+		//		});
+		//        
+		//        Button down = (Button)mLayout.findViewById(R.id.imageViewDown);
+		//        down.setOnClickListener(new OnClickListener() {
+		//			
+		//			@Override
+		//			public void onClick(View v) {
+		//				Log.i("TEST", "left button clicked");
+		//				mXbmc.volumeDown();
+		//			}
+		//		});
+
 		mPausePlay = (Button)mSmartView.findViewById(R.id.imageViewPausePlay);
 		mPausePlay.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				mXbmc.playPause();
 			}
 		});
-        
-//        mSmartView.addViewToWatch(up);
-//        mSmartView.addViewToWatch(down);
-        mSmartView.addViewToWatch(mPausePlay);
-    }
-    
-    /**
-     * Create sample sensor control.
-     *
-     * @param hostAppPackageName Package name of host application.
-     * @param context The context.
-     */
-    SampleSensorControl(final String hostAppPackageName, final Context context) {
-        super(context, hostAppPackageName);
-        mThis = this;
-        mContext = context;
-//        AccessorySensorManager manager = new AccessorySensorManager(context, hostAppPackageName);
-        
-        mSmartView = new SmartWatchLinearLayout(mContext, WIDTH, HEIGHT);
-        mLayout = (LinearLayout)LinearLayout.inflate(context, R.layout.pauseplay, mSmartView);
-        mSmartView.setParameters(mThis, mLayout);
-        
-        setupButtons();
-        startScreenDimTimer();
-        
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        String user = pref.getString(context.getString(R.string.preference_key_user), "");
-        String pass = pref.getString(context.getString(R.string.preference_key_password), "");
-        String host = pref.getString(context.getString(R.string.preference_key_host), "");
-        String port = pref.getString(context.getString(R.string.preference_key_port), "");
-        boolean ssl = pref.getBoolean(context.getString(R.string.preference_key_ssl), false);
-        
-        //Create a new instance of the xbmc remote
-        mXbmc = new XbmcRemote(user, pass, host, port, ssl);
-        
-        //Create a listener for callbacks
-        XbmcCallbacks listener = new XbmcCallbacks() {
-			
+
+		//        mSmartView.addViewToWatch(up);
+		//        mSmartView.addViewToWatch(down);
+		mSmartView.addViewToWatch(mPausePlay);
+	}
+
+	/**
+	 * Create sample sensor control.
+	 *
+	 * @param hostAppPackageName Package name of host application.
+	 * @param context The context.
+	 */
+	SampleSensorControl(final String hostAppPackageName, final Context context) {
+		super(context, hostAppPackageName);
+		mThis = this;
+		mContext = context;
+		//        AccessorySensorManager manager = new AccessorySensorManager(context, hostAppPackageName);
+
+		mSmartView = new SmartWatchLinearLayout(mContext, WIDTH, HEIGHT);
+
+		//Get preferences
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+		String user = pref.getString(context.getString(R.string.preference_key_user), "");
+		String pass = pref.getString(context.getString(R.string.preference_key_password), "");
+		String host = pref.getString(context.getString(R.string.preference_key_host), "");
+		String port = pref.getString(context.getString(R.string.preference_key_port), "");
+		boolean ssl = pref.getBoolean(context.getString(R.string.preference_key_ssl), false);
+
+		//make sure preferences are set
+		if(user.contentEquals("")
+				|| pass.contentEquals("")
+				|| host.contentEquals("")
+				|| port.contentEquals("")){
+
+			mLayout = (LinearLayout)LinearLayout.inflate(context, R.layout.main, mSmartView);
+			mSmartView.setParameters(mThis, mLayout);
+			mSmartView.requestDraw();
+			return;
+		}
+
+		mLayout = (LinearLayout)LinearLayout.inflate(context, R.layout.pauseplay, mSmartView);
+		mSmartView.setParameters(mThis, mLayout);
+
+		setupButtons();
+		startScreenDimTimer();
+
+		//Create a new instance of the xbmc remote
+		mXbmc = new XbmcRemote(user, pass, host, port, ssl);
+
+		//Create a listener for callbacks
+		XbmcCallbacks listener = new XbmcCallbacks() {
+
 			@Override
 			public void onVolumeUp(int volume) {
 				// TODO Auto-generated method stub
 			}
-			
+
 			@Override
 			public void onVolumeDown(int volume) {
 				// TODO Auto-generated method stub
 			}
-			
+
 			@Override
 			public void onPlayPause(PlayStatus playStatus) {
 				if(playStatus.equals(PlayStatus.Playing))
 					mPausePlay.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.pausebig));
 				else if(playStatus.equals(PlayStatus.Paused))
 					mPausePlay.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.playbig));
-				
+
 				mSmartView.requestDraw();
 			}
 		};
-        
+
 		mXbmc.setListener(listener);
-    }
+	}
 
 	@Override
-    public void onResume() {
-        Log.d(SampleExtensionService.LOG_TAG, "Starting control");
-        setScreenState(Control.Intents.SCREEN_STATE_ON);
-    }
+	public void onResume() {
+		setScreenState(Control.Intents.SCREEN_STATE_ON);
+	}
 
 	@Override
 	public void onTouch(ControlTouchEvent event) {
 		super.onTouch(event);
-		
+
 		//Reset the screen dim timer
 		if(mScreenDimTimer != null){
 			mScreenDimTimer.cancel();
 			mScreenDimTimer = null;
 			startScreenDimTimer();
 		}
-		
+
 		//Forward this touch event on to the smartview
 		mSmartView.dispatchControlTouchEvent(event);
 	}
-    
+
 	@Override
 	public void updateSmartWatchScreen(Bitmap b) {
 		showBitmap(b);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.wordpress.mobilecoder.xmbcSmartExtension" android:versionName="1.0" android:versionCode="10001">
+      package="com.wordpress.mobilecoder.xmbcSmartExtension" android:versionName="1.0" android:versionCode="10002">
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10"/>
 
     <uses-permission

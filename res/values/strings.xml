@@ -12,6 +12,8 @@
     <string name="configuration_text">XBMC Remote settings</string>
     <!-- Menu option shown in preferences -->
 
+    <string name="needs_configure">You must first configure the settings through LiveWare Manager!</string>
+    
     <string name="preference_option_host">Host Name</string>
     <string name="preference_option_host_summary">Example: 192.168.0.10</string>
     
